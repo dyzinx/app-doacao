@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">Tela de Login</string>
+    <string name="app_name">TelaDeLogin</string>
+    <string name="nome">Nome</string>
+    <string name="sobrenome">Sobrenome</string>
+    <string name="cpf">CPF</string>
+    <string name="email">Email</string>
+    <string name="telefone">Telefone</string>
+    <string name="senha">Senha</string>
+    <string name="confirmar_senha">Confirme a senha</string>
+    <string name="cadastrar">Cadastre-se</string>
 </resources>
