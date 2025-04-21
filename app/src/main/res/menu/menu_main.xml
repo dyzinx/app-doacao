@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_historico"
+        android:icon="@drawable/ic_histor"
+        android:title="Histórico de doações"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/menu_vidas"
+        android:icon="@drawable/ic_life"
+        android:title="Vidas salvas"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/menu_config"
+        android:icon="@drawable/ic_settings"
+        android:title="Configurações"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/menu_sobre"
+        android:icon="@drawable/ic_about"
+        android:title="Sobre o app"
+        app:showAsAction="always"/>
+</menu>

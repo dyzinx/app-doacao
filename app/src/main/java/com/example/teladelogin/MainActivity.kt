@@ -1,5 +1,6 @@
 package com.example.teladelogin
 
+import com.example.teladelogin.TelaInicialActivity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -38,7 +39,6 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Verifica no Firestore se existe um usuário com esse nome e senha
             db.collection("usuarios")
                 .whereEqualTo("nome", nome)
                 .whereEqualTo("senha", senha)
@@ -46,13 +46,18 @@ class MainActivity : AppCompatActivity() {
                 .addOnSuccessListener { documents ->
                     if (!documents.isEmpty) {
                         Toast.makeText(this, "Login bem-sucedido!", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this, TelaInicialActivity::class.java))
+                        try {
+                            val intent = Intent(this, TelaInicialActivity::class.java)
+                            startActivity(intent)
+                        } catch (e: Exception) {
+                            Toast.makeText(this, "Erro ao abrir tela: ${e.message}", Toast.LENGTH_LONG).show()
+                        }
                     } else {
-                        Toast.makeText(this, "Nome ou senha incorretos!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Credenciais inválidas", Toast.LENGTH_SHORT).show()
                     }
                 }
                 .addOnFailureListener { e ->
-                    Toast.makeText(this, "Erro ao fazer login: ${e.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Erro: ${e.message}", Toast.LENGTH_LONG).show()
                 }
         }
 

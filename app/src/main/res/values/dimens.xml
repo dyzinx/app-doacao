@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="popup_horizontal_offset">16dp</dimen>
+    <dimen name="popup_vertical_offset">-8dp</dimen>
+</resources>

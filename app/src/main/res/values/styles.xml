@@ -1,0 +1,15 @@
+<resources>
+    <!-- Estilo base para os PopupMenus -->
+    <style name="PopupMenuStyle" parent="Widget.AppCompat.PopupMenu">
+        <!-- Para versões mais novas do Android -->
+        <item name="android:popupBackground">@drawable/popup_background</item>
+        <!-- Para compatibilidade com versões antigas -->
+        <item name="popupTheme">@style/PopupMenuThemeOverlay</item>
+        <item name="android:dropDownHorizontalOffset">@dimen/popup_horizontal_offset</item>
+        <item name="android:dropDownVerticalOffset">@dimen/popup_vertical_offset</item>
+    </style>
+
+    <style name="PopupMenuThemeOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:popupBackground">@drawable/popup_background</item>
+    </style>
+</resources>

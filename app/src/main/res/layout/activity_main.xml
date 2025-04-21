@@ -12,7 +12,7 @@
     <!-- Campo Nome -->
     <ImageView
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="150dp"
         android:layout_gravity="center_horizontal"
         android:contentDescription="Ícone de Gota de Sangue"
         android:paddingBottom="24dp"
