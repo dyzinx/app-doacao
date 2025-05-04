@@ -8,4 +8,90 @@
     <string name="senha">Senha</string>
     <string name="confirmar_senha">Confirme a senha</string>
     <string name="cadastrar">Cadastre-se</string>
+    <!-- Tipos Sanguíneos -->
+    <string-array name="tipos_sanguineos">
+        <item>Selecione seu tipo sanguíneo</item>
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+        <item>O+</item>
+        <item>O-</item>
+    </string-array>
+
+    <!-- Gêneros -->
+    <string-array name="generos">
+        <item>Selecione seu gênero</item>
+        <item>Masculino</item>
+        <item>Feminino</item>
+        <item>Outro</item>
+        <item>Prefiro não informar</item>
+    </string-array>
+
+    <!-- Estados Civis -->
+    <string-array name="estados_civis">
+        <item>Selecione seu estado civil</item>
+        <item>Solteiro(a)</item>
+        <item>Casado(a)</item>
+        <item>Divorciado(a)</item>
+        <item>Viúvo(a)</item>
+        <item>Separado(a)</item>
+    </string-array>
+
+    <!-- Nacionalidades -->
+    <string-array name="nacionalidades">
+        <item>Selecione sua nacionalidade</item>
+        <item>Brasileiro(a)</item>
+        <item>Estrangeiro(a)</item>
+    </string-array>
+
+    <!-- Opções Sim/Não -->
+    <string-array name="sim_nao">
+        <item>Selecione</item>
+        <item>Sim</item>
+        <item>Não</item>
+    </string-array>
+
+    <!-- Frequência de Atividades Físicas -->
+    <string-array name="frequencia_atividades">
+        <item>Com que frequência?</item>
+        <item>Diariamente</item>
+        <item>3-4 vezes por semana</item>
+        <item>1-2 vezes por semana</item>
+        <item>Raramente</item>
+        <item>Nunca</item>
+    </string-array>
+
+    <!-- Strings para a tela de seleção de hospital -->
+    <string name="titulo_permissao_localizacao">Permissão de Localização Necessária</string>
+    <string name="mensagem_permissao_localizacao">Este app precisa acessar sua localização para encontrar hospitais próximos</string>
+    <string name="permissao_negada">Permissão negada. Você pode digitar um endereço manualmente.</string>
+    <string name="digite_endereco">Digite um endereço ou permita o uso da localização</string>
+    <string name="endereco_nao_encontrado">Endereço não encontrado</string>
+    <string name="usando_coordenadas">Endereço não encontrado, usando coordenadas</string>
+    <string name="erro_endereco">Erro ao obter endereço: %1$s</string>
+    <string name="erro_localizacao">Erro ao obter localização: %1$s</string>
+    <string name="erro_hospitais">Erro ao buscar hospitais: %1$s</string>
+    <string name="localizacao_indisponivel">Localização não disponível</string>
+    <string name="sua_localizacao">Sua localização</string>
+    <string name="voce_esta_aqui">Você está aqui</string>
+    <string name="btn_voltar">Voltar</string>
+    <string name="btn_buscar">Buscar</string>
+    <string name="titulo_mapa_hospitais">Hospitais Próximos</string>
+
+    <!-- Mensagens de erro genéricas -->
+    <string name="erro_conexao">Erro de conexão. Verifique sua internet.</string>
+    <string name="erro_desconhecido">Erro desconhecido</string>
+
+    <!-- Textos para diálogos -->
+    <string name="btn_ok">OK</string>
+    <string name="btn_cancelar">Cancelar</string>
+    <string name="btn_tentar_novamente">Tentar novamente</string>
+
+    <!-- Textos para marcadores do mapa -->
+    <string name="marcador_hospital">Hospital</string>
+    <string name="lista_de_hospitais">Hospitais próximos</string>
+
 </resources>

@@ -1,12 +1,13 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    dependencies {
-        classpath("com.google.gms:google-services:4.4.0")
-    }
     repositories {
+        maven("https://jitpack.io") // Correção para Kotlin DSL
         google()
         mavenCentral()
+    }
+    dependencies {
+        classpath("com.google.gms:google-services:4.4.0") // Verifique se essa versão é a mais recente
     }
 }
 

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaflet Map with OSM</title>
+
+    <!-- Inclua o Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+    <style>
+        #map {
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+
+<!-- Inclua o Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+<script>
+    // Criação do mapa e definição da posição inicial (latitude e longitude)
+    var map = L.map('map').setView([51.505, -0.09], 13); // Posição inicial (latitude, longitude)
+
+    // Adicione o OpenStreetMap como camada base
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Adiciona um marcador na posição inicial
+    var marker = L.marker([51.505, -0.09]).addTo(map);
+    marker.bindPopup("<b>Hospital</b><br>Exemplo de hospital").openPopup();
+
+    // Função para pegar a localização do usuário
+    function onLocationFound(e) {
+        var radius = e.accuracy / 2;
+
+        L.marker(e.latlng).addTo(map)
+            .bindPopup("Você está a " + radius + " metros de distância deste ponto.")
+            .openPopup();
+
+        L.circle(e.latlng, radius).addTo(map);
+    }
+
+    // Solicitar a localização do usuário
+    map.on('locationfound', onLocationFound);
+    map.locate({setView: true, maxZoom: 16});
+</script>
+</body>
+</html>

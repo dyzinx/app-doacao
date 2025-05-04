@@ -1,5 +1,6 @@
 package com.example.teladelogin
 
+import android.content.Intent
 import android.content.Context
 import android.os.Bundle
 import android.view.ContextThemeWrapper
@@ -32,7 +33,8 @@ class TelaInicialActivity : AppCompatActivity() {
 
     private fun setupClickListeners() {
         btnAgendar.setOnClickListener {
-            showToast("Tela de agendamento (em construção)")
+            val intent = Intent(this, QuestionarioActivity::class.java)
+            startActivity(intent)
         }
 
         iconeMenu.setOnClickListener { view ->
