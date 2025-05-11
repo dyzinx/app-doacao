@@ -17,6 +17,7 @@ import org.osmdroid.views.overlay.Marker
 import java.net.HttpURLConnection
 import java.net.URL
 import java.util.*
+import android.content.Intent
 
 class SelecaoHospitalActivity : AppCompatActivity() {
 
@@ -192,7 +193,21 @@ class SelecaoHospitalActivity : AppCompatActivity() {
                             position = ponto
                             title = nome
                             setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+
+                            // Clique no marcador leva para a tela de agendamento
+                            setOnMarkerClickListener { marker, _ ->
+                                val intent = Intent(this@SelecaoHospitalActivity, CalendarioActivity::class.java).apply {
+                                    putExtra("nomeHospital", marker.title)
+                                    putExtra("latitude", marker.position.latitude)
+                                    putExtra("longitude", marker.position.longitude)
+                                    // Adicione uma imagem (local ou URL, exemplo abaixo)
+                                    putExtra("imagemUrl", "") // Pode usar uma URL futuramente ou deixar vazio para imagem padrão
+                                }
+                                startActivity(intent)
+                                true
+                            }
                         }
+
                         map.overlays.add(marcador)
                         marcadoresHospitais.add(marcador)
                         locaisHospitais.add(Pair(nome, ponto))

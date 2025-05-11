@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.teladelogin">
-
     <!-- Permissões necessárias -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -17,7 +16,15 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.TelaDeLogin"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".AgendamentoConcluidoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ConfirmarAgendamentoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CalendarioActivity"
+            android:exported="false" />
         <activity
             android:name=".SelecaoHospitalActivity"
             android:exported="false" />
@@ -32,6 +39,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
