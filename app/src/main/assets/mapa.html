@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Mapa do Brasil</title>
+    <style>
+        .state {
+            fill: #D3DEE2;
+            stroke: #FFFFFF;
+            stroke-width: 1;
+            cursor: pointer;
+        }
+        .state:hover {
+            fill: #FCAD17;
+        }
+    </style>
+    <script>
+        function onStateClick(stateId) {
+            Android.onStateClick(stateId);
+            document.getElementById(stateId).style.fill = "#FC0000";
+        }
+    </script>
+</head>
+<body>
+<svg width="500" height="600" viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg">
+    <rect id="AC" class="state" x="10" y="10" width="80" height="80" onclick="onStateClick('AC')" />
+    <rect id="AL" class="state" x="100" y="10" width="80" height="80" onclick="onStateClick('AL')" />
+    <rect id="AP" class="state" x="190" y="10" width="80" height="80" onclick="onStateClick('AP')" />
+    <rect id="AM" class="state" x="280" y="10" width="80" height="80" onclick="onStateClick('AM')" />
+    <rect id="BA" class="state" x="370" y="10" width="80" height="80" onclick="onStateClick('BA')" />
+    <rect id="CE" class="state" x="10" y="100" width="80" height="80" onclick="onStateClick('CE')" />
+    <rect id="DF" class="state" x="100" y="100" width="80" height="80" onclick="onStateClick('DF')" />
+    <rect id="ES" class="state" x="190" y="100" width="80" height="80" onclick="onStateClick('ES')" />
+    <rect id="GO" class="state" x="280" y="100" width="80" height="80" onclick="onStateClick('GO')" />
+    <rect id="MA" class="state" x="370" y="100" width="80" height="80" onclick="onStateClick('MA')" />
+    <rect id="MT" class="state" x="10" y="190" width="80" height="80" onclick="onStateClick('MT')" />
+    <rect id="MS" class="state" x="100" y="190" width="80" height="80" onclick="onStateClick('MS')" />
+    <rect id="MG" class="state" x="190" y="190" width="80" height="80" onclick="onStateClick('MG')" />
+    <rect id="PA" class="state" x="280" y="190" width="80" height="80" onclick="onStateClick('PA')" />
+    <rect id="PB" class="state" x="370" y="190" width="80" height="80" onclick="onStateClick('PB')" />
+    <rect id="PR" class="state" x="10" y="280" width="80" height="80" onclick="onStateClick('PR')" />
+    <rect id="PE" class="state" x="100" y="280" width="80" height="80" onclick="onStateClick('PE')" />
+    <rect id="PI" class="state" x="190" y="280" width="80" height="80" onclick="onStateClick('PI')" />
+    <rect id="RJ" class="state" x="280" y="280" width="80" height="80" onclick="onStateClick('RJ')" />
+    <rect id="RN" class="state" x="370" y="280" width="80" height="80" onclick="onStateClick('RN')" />
+    <rect id="RS" class="state" x="10" y="370" width="80" height="80" onclick="onStateClick('RS')" />
+    <rect id="RO" class="state" x="100" y="370" width="80" height="80" onclick="onStateClick('RO')" />
+    <rect id="RR" class="state" x="190" y="370" width="80" height="80" onclick="onStateClick('RR')" />
+    <rect id="SC" class="state" x="280" y="370" width="80" height="80" onclick="onStateClick('SC')" />
+    <rect id="SP" class="state" x="370" y="370" width="80" height="80" onclick="onStateClick('SP')" />
+    <rect id="SE" class="state" x="10" y="460" width="80" height="80" onclick="onStateClick('SE')" />
+    <rect id="TO" class="state" x="100" y="460" width="80" height="80" onclick="onStateClick('TO')" />
+</svg>
+</body>
+</html>

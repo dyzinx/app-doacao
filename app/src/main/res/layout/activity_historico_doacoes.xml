@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+<!-- Top bar -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:background="#D32F2F"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="24dp"
+        android:paddingBottom="8dp">
+
+        <ImageView
+            android:id="@+id/iconeMenu"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_menu"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="Menu" />
+
+        <ImageView
+            android:id="@+id/logoCentral"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/icone_de_celulas"
+            android:layout_centerInParent="true"
+            android:contentDescription="Logo App" />
+
+        <ImageView
+            android:id="@+id/iconeUsuario"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icone_de_usuario"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="Perfil" />
+    </RelativeLayout>
+
+    <!-- Conteúdo com histórico -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="16dp"
+        android:background="@android:color/white"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Título -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=" Histórico de Doações"
+                android:textSize="20sp"
+                android:textColor="#D32F2F"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp"
+                android:gravity="center" />
+
+            <!-- Doações realizadas -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Doações Realizadas"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="24dp">
+
+                <include
+                    layout="@layout/item_doacao_realizada"
+                    tools:layout="@layout/item_doacao_realizada" />
+                <include
+                    layout="@layout/item_doacao_realizada"
+                    tools:layout="@layout/item_doacao_realizada" />
+            </LinearLayout>
+
+            <!-- Doações agendadas -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Doações Agendadas"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include
+                    layout="@layout/item_doacao_agendada"
+                    tools:layout="@layout/item_doacao_agendada" />
+                <include
+                    layout="@layout/item_doacao_agendada"
+                    tools:layout="@layout/item_doacao_agendada" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

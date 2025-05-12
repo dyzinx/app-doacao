@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <EditText
+        android:id="@+id/inputEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:background="@drawable/borda_edittext"
+        android:padding="12dp"
+        android:layout_marginBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/inputSenhaAtual"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Senha atual"
+        android:inputType="textPassword"
+        android:background="@drawable/borda_edittext"
+        android:padding="12dp"
+        android:layout_marginBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/inputNovaSenha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nova senha"
+        android:inputType="textPassword"
+        android:background="@drawable/borda_edittext"
+        android:padding="12dp"
+        android:layout_marginBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/inputConfirmarSenha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Confirmar nova senha"
+        android:inputType="textPassword"
+        android:background="@drawable/borda_edittext"
+        android:padding="12dp"/>
+</LinearLayout>

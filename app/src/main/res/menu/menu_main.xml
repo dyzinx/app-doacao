@@ -5,13 +5,13 @@
     <item
         android:id="@+id/menu_historico"
         android:icon="@drawable/ic_histor"
-        android:title="Histórico de doações"
+        android:title="Histórico de Doações"
         app:showAsAction="always"/>
 
     <item
         android:id="@+id/menu_vidas"
         android:icon="@drawable/ic_life"
-        android:title="Vidas salvas"
+        android:title="Vidas Salvas"
         app:showAsAction="always"/>
 
     <item
@@ -23,6 +23,6 @@
     <item
         android:id="@+id/menu_sobre"
         android:icon="@drawable/ic_about"
-        android:title="Sobre o app"
+        android:title="Sobre o App"
         app:showAsAction="always"/>
 </menu>

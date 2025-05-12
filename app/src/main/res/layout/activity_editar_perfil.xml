@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:padding="0dp">
+
+    <!-- Top Bar -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:background="#D32F2F"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="24dp"
+        android:paddingBottom="8dp">
+
+        <ImageView
+            android:id="@+id/iconeMenu"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_menu"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="Menu" />
+
+        <ImageView
+            android:id="@+id/logoCentral"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/icone_de_celulas"
+            android:contentDescription="Logo" />
+
+        <ImageView
+            android:id="@+id/iconeUsuario"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icone_de_usuario"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="Perfil" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <!-- Foto de perfil -->
+            <FrameLayout
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp">
+
+                <ImageView
+                    android:id="@+id/imagePerfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/icone_de_usuario"
+                    android:background="@drawable/borda_edittext"
+                    android:contentDescription="Foto do usuário" />
+
+                <ImageView
+                    android:id="@+id/ic_camera"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_camera"
+                    android:layout_gravity="bottom|end"
+                    android:layout_margin="4dp"
+                    android:background="@android:color/white"
+                    android:padding="4dp"
+                    android:contentDescription="Abrir galeria" />
+            </FrameLayout>
+
+            <!-- Campo: nome -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_edit"
+                    android:layout_marginEnd="8dp" />
+
+                <EditText
+                    android:id="@+id/edtNome"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:hint="nome completo"
+                    android:background="@drawable/borda_edittext"
+                    android:minHeight="48dp"
+                    android:padding="12dp" />
+            </LinearLayout>
+
+            <!-- Campo: email -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_mensagem"
+                    android:layout_marginEnd="8dp" />
+
+                <EditText
+                    android:id="@+id/edtEmail"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:hint="email"
+                    android:inputType="textEmailAddress"
+                    android:background="@drawable/borda_edittext"
+                    android:minHeight="48dp"
+                    android:padding="12dp" />
+            </LinearLayout>
+
+            <!-- Campo: celular -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_telefone"
+                    android:layout_marginEnd="8dp" />
+
+                <EditText
+                    android:id="@+id/edtCelular"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:hint="celular"
+                    android:inputType="phone"
+                    android:background="@drawable/borda_edittext"
+                    android:minHeight="48dp"
+                    android:padding="12dp" />
+            </LinearLayout>
+
+            <!-- Campo: aniversário -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_calendario"
+                    android:layout_marginEnd="8dp" />
+
+                <EditText
+                    android:id="@+id/edtAniversario"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:hint="aniversário"
+                    android:inputType="date"
+                    android:background="@drawable/borda_edittext"
+                    android:minHeight="48dp"
+                    android:padding="12dp" />
+            </LinearLayout>
+
+            <!-- Campo: gênero -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_edit"
+                    android:layout_marginEnd="8dp" />
+
+                <EditText
+                    android:id="@+id/edtGenero"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:hint="gênero"
+                    android:inputType="text"
+                    android:background="@drawable/borda_edittext"
+                    android:minHeight="48dp"
+                    android:padding="12dp" />
+            </LinearLayout>
+
+            <!-- Botão Alterar Senha -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginBottom="24dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_escudo"
+                    android:layout_marginEnd="8dp" />
+
+                <Button
+                    android:id="@+id/btnAlterarSenha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Alterar senha" />
+            </LinearLayout>
+
+            <!-- Botão Salvar -->
+            <Button
+                android:id="@+id/btnSalvar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Salvar Alterações"
+                android:textAllCaps="false"
+                android:background="@drawable/botao_redondo"
+                android:textColor="@android:color/white"
+                android:elevation="4dp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

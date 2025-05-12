@@ -44,6 +44,11 @@ dependencies {
 
     implementation ("com.github.bumptech.glide:glide:4.16.0")
 
+    implementation ("com.github.CanHub:Android-Image-Cropper:4.3.2")
+
+    implementation ("com.caverock:androidsvg:1.4")
+
+
     // Firebase
     implementation("com.google.firebase:firebase-firestore-ktx:24.10.3")
     implementation("com.google.firebase:firebase-auth:22.3.0")

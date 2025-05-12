@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <!-- Top bar -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:background="#D32F2F"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="24dp"
+        android:paddingBottom="8dp">
+
+        <ImageView
+            android:id="@+id/iconeMenu"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_menu"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="Menu" />
+
+        <ImageView
+            android:id="@+id/logoCentral"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/icone_de_celulas"
+            android:contentDescription="Logo" />
+
+        <ImageView
+            android:id="@+id/iconeUsuario"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icone_de_usuario"
+            android:contentDescription="Perfil" />
+    </RelativeLayout>
+
+    <!-- Conteúdo -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="24dp"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Quem somos"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#D32F2F"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="O DoeVida é um aplicativo criado por pessoas apaixonadas por salvar vidas. Somos uma equipe de desenvolvedores unidos pelo propósito de conectar doadores de sangue a quem mais precisa — de forma rápida, simples e segura.\n\nSabemos que cada doação pode ser a diferença entre a vida e a morte. Por isso, desenvolvemos uma plataforma acessível, intuitiva e gratuita para fortalecer a cultura da doação no Brasil."
+                android:textSize="15sp"
+                android:lineSpacingExtra="6dp"
+                android:textColor="#444444"
+                android:layout_marginBottom="24dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nosso objetivo"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#D32F2F"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nosso principal objetivo é aumentar o número de doações de sangue e facilitar o acesso à informação. Queremos que ninguém precise esperar por uma bolsa de sangue. Para isso, oferecemos:\n\n📍 Localização de hemocentros próximos a você\n🩸 Cadastro de doadores voluntários\n❤️ Quantidade de pessoas salvas por doadores como você"
+                android:textSize="15sp"
+                android:lineSpacingExtra="6dp"
+                android:textColor="#444444"
+                android:layout_marginBottom="24dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nossa missão"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#D32F2F"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Criar uma rede solidária, onde cada doador se torne um herói invisível. Incentivar a empatia, promover a saúde coletiva e transformar um simples gesto em algo extraordinário."
+                android:textSize="15sp"
+                android:textColor="#444444"
+                android:lineSpacingExtra="6dp"
+                android:layout_marginBottom="24dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Junte-se a nós!"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#D32F2F"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Seja você também parte do movimento que salva milhares de vidas todos os dias.\nCom o DoeVida, doar sangue ficou mais fácil — e mais humano.\n\nDoe tempo. Doe amor. Doe vida."
+                android:textSize="15sp"
+                android:textColor="#444444"
+                android:lineSpacingExtra="6dp"
+                android:layout_marginBottom="32dp" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

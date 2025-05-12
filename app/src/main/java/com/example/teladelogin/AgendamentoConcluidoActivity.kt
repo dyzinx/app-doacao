@@ -11,7 +11,12 @@ class AgendamentoConcluidoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_agendamento_concluido)
 
+        val btnMeusAgendamentos = findViewById<Button>(R.id.btnMeusAgendamentos)
 
+        btnMeusAgendamentos.setOnClickListener {
+            val intent = Intent(this, HistoricoDoacoesActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
-
+}

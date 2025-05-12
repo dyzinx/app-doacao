@@ -116,14 +116,35 @@ class CalendarioActivity : AppCompatActivity() {
 
     private fun handleMenuItemClick(itemId: Int) {
         when (itemId) {
-            R.id.menu_historico -> showToast("Histórico de doações (em construção)")
-            R.id.menu_vidas -> showToast("Vidas salvas (em construção)")
-            R.id.menu_config -> showToast("Configurações (em construção)")
-            R.id.menu_sobre -> showToast("Sobre o app (em construção)")
-            R.id.menu_editar -> showToast("Editar Perfil (em construção)")
-            R.id.menu_sair -> finish()
+            R.id.menu_historico -> {
+                val intent = Intent(this, HistoricoDoacoesActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.menu_vidas -> {
+                val intent = Intent(this, VidasSalvasActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.menu_config -> {
+                val intent = Intent(this, ConfiguracoesActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.menu_sobre -> {
+                val intent = Intent(this, SobreActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.menu_editar -> {
+                val intent = Intent(this, EditarPerfilActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.menu_sair -> {
+                finishAffinity() // Fecha todas as atividades abertas
+            }
+            else -> {
+                Toast.makeText(this, "Ação desconhecida", Toast.LENGTH_SHORT).show()
+            }
         }
     }
+
 
     private fun PopupMenu.forceShowIcons() {
         try {

@@ -17,6 +17,24 @@
         android:theme="@style/Theme.TelaDeLogin"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".MapaBrasil"
+            android:exported="false" />
+        <activity
+            android:name=".EditarPerfilActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ConfiguracoesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SobreActivity"
+            android:exported="false" />
+        <activity
+            android:name=".VidasSalvasActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HistoricoDoacoesActivity"
+            android:exported="false" />
+        <activity
             android:name=".AgendamentoConcluidoActivity"
             android:exported="false" />
         <activity

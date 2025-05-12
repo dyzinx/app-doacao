@@ -1,41 +1,27 @@
 package com.example.teladelogin
 
-import android.content.Intent
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.ContextThemeWrapper
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 
-class TelaInicialActivity : AppCompatActivity() {
+class HistoricoDoacoesActivity : AppCompatActivity() {
 
-    private lateinit var btnAgendar: Button
     private lateinit var iconeMenu: ImageView
     private lateinit var iconeUsuario: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tela_inicial)
+        setContentView(R.layout.activity_historico_doacoes)
 
-        btnAgendar = findViewById(R.id.btnAgendar)
         iconeMenu = findViewById(R.id.iconeMenu)
         iconeUsuario = findViewById(R.id.iconeUsuario)
-
-        setupClickListeners()
-    }
-
-    private fun setupClickListeners() {
-        btnAgendar.setOnClickListener {
-            val intent = Intent(this, QuestionarioActivity::class.java)
-            startActivity(intent)
-        }
 
         iconeMenu.setOnClickListener { view ->
             showStyledMenuPopup(view, R.menu.menu_main)
@@ -47,19 +33,14 @@ class TelaInicialActivity : AppCompatActivity() {
     }
 
     private fun showStyledMenuPopup(anchorView: View, menuRes: Int) {
-        // Cria um contexto com o tema personalizado
         val wrapper = ContextThemeWrapper(this, R.style.PopupMenuStyle)
 
-        // Cria o PopupMenu com o contexto temático
         val popup = PopupMenu(wrapper, anchorView).apply {
-            // Infla o menu a partir do XML
             menuInflater.inflate(menuRes, menu)
 
-            // Configura os ícones
             for (i in 0 until menu.size()) {
                 menu.getItem(i)?.let { item ->
-                    item.icon = ContextCompat.getDrawable(this@TelaInicialActivity, getIconForMenuItem(item.itemId))
-                    item.icon?.setTint(ContextCompat.getColor(this@TelaInicialActivity, android.R.color.black))
+                    item.icon?.setTint(ContextCompat.getColor(this@HistoricoDoacoesActivity, android.R.color.black))
                 }
             }
 
@@ -68,21 +49,26 @@ class TelaInicialActivity : AppCompatActivity() {
                 true
             }
 
-            // Força mostrar ícones (para APIs antigas)
             forceShowIcons()
             show()
         }
     }
 
-    private fun getIconForMenuItem(itemId: Int): Int {
-        return when (itemId) {
-            R.id.menu_historico -> R.drawable.ic_histor
-            R.id.menu_vidas -> R.drawable.ic_life
-            R.id.menu_config -> R.drawable.ic_settings
-            R.id.menu_sobre -> R.drawable.ic_about
-            R.id.menu_editar -> R.drawable.ic_edit
-            R.id.menu_sair -> R.drawable.logout
-            else -> 0
+    private fun PopupMenu.forceShowIcons() {
+        try {
+            val fields = this.javaClass.declaredFields
+            for (field in fields) {
+                if ("mPopup" == field.name) {
+                    field.isAccessible = true
+                    val menuPopupHelper = field.get(this)
+                    val classPopupHelper = Class.forName(menuPopupHelper.javaClass.name)
+                    val setForceIcons = classPopupHelper.getMethod("setForceShowIcon", Boolean::class.java)
+                    setForceIcons.invoke(menuPopupHelper, true)
+                    break
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 
@@ -117,19 +103,6 @@ class TelaInicialActivity : AppCompatActivity() {
         }
     }
 
-
-    private fun PopupMenu.forceShowIcons() {
-        try {
-            val field = javaClass.getDeclaredField("mPopup")
-            field.isAccessible = true
-            val menuPopupHelper = field.get(this)
-            menuPopupHelper.javaClass
-                .getDeclaredMethod("setForceShowIcon", Boolean::class.java)
-                .invoke(menuPopupHelper, true)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
