@@ -1,6 +1,7 @@
 package com.example.teladelogin
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
@@ -9,7 +10,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import org.json.JSONArray
+import org.json.JSONObject
 import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
@@ -17,7 +18,6 @@ import org.osmdroid.views.overlay.Marker
 import java.net.HttpURLConnection
 import java.net.URL
 import java.util.*
-import android.content.Intent
 
 class SelecaoHospitalActivity : AppCompatActivity() {
 
@@ -32,11 +32,10 @@ class SelecaoHospitalActivity : AppCompatActivity() {
     private var marcadorUsuario: Marker? = null
     private val marcadoresHospitais = mutableListOf<Marker>()
 
-
+    private var dadosQuestionario: Bundle? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         Configuration.getInstance().load(applicationContext, getSharedPreferences("osmdroid", MODE_PRIVATE))
         setContentView(R.layout.activity_selecao_hospital)
 
@@ -50,6 +49,9 @@ class SelecaoHospitalActivity : AppCompatActivity() {
         map.controller.setCenter(GeoPoint(-14.2350, -51.9253)) // Centro do Brasil
 
         geocoder = Geocoder(this, Locale.getDefault())
+
+        // Recupera dados do questionário
+        dadosQuestionario = intent.extras
 
         btnSearch.setOnClickListener {
             val endereco = edtSearch.text.toString()
@@ -117,7 +119,6 @@ class SelecaoHospitalActivity : AppCompatActivity() {
         }
     }
 
-
     private fun mostrarMarcadorUsuario(local: GeoPoint) {
         marcadorUsuario?.let { map.overlays.remove(it) }
 
@@ -125,40 +126,35 @@ class SelecaoHospitalActivity : AppCompatActivity() {
             position = local
             title = "Você está aqui"
             setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
-            icon = ContextCompat.getDrawable(this@SelecaoHospitalActivity, R.drawable.ic_vc_esta_aqui) // Substitua por seu ícone
+            icon = ContextCompat.getDrawable(this@SelecaoHospitalActivity, R.drawable.ic_vc_esta_aqui)
         }
 
         map.overlays.add(marcadorUsuario)
         map.invalidate()
     }
 
-
     private fun buscarHemocentrosProximos(localizacao: GeoPoint) {
         Thread {
             try {
-
-                val locaisHospitais = mutableListOf<Pair<String, GeoPoint>>()
-                val marcadoresHospitais = mutableListOf<Marker>()
-
                 val lat = localizacao.latitude
                 val lon = localizacao.longitude
                 val radius = 50000 // 50km
 
                 val query = """
-                [out:json];
-                (
-                  node["amenity"="blood_donation"](around:$radius,$lat,$lon);
-                  way["amenity"="blood_donation"](around:$radius,$lat,$lon);
-                  relation["amenity"="blood_donation"](around:$radius,$lat,$lon);
-                  node["amenity"="blood_bank"](around:$radius,$lat,$lon);
-                  way["amenity"="blood_bank"](around:$radius,$lat,$lon);
-                  relation["amenity"="blood_bank"](around:$radius,$lat,$lon);
-                  node["healthcare"="blood_donation"](around:$radius,$lat,$lon);
-                  way["healthcare"="blood_donation"](around:$radius,$lat,$lon);
-                  relation["healthcare"="blood_donation"](around:$radius,$lat,$lon);
-                );
-                out center;
-            """.trimIndent()
+                    [out:json];
+                    (
+                      node["amenity"="blood_donation"](around:$radius,$lat,$lon);
+                      way["amenity"="blood_donation"](around:$radius,$lat,$lon);
+                      relation["amenity"="blood_donation"](around:$radius,$lat,$lon);
+                      node["amenity"="blood_bank"](around:$radius,$lat,$lon);
+                      way["amenity"="blood_bank"](around:$radius,$lat,$lon);
+                      relation["amenity"="blood_bank"](around:$radius,$lat,$lon);
+                      node["healthcare"="blood_donation"](around:$radius,$lat,$lon);
+                      way["healthcare"="blood_donation"](around:$radius,$lat,$lon);
+                      relation["healthcare"="blood_donation"](around:$radius,$lat,$lon);
+                    );
+                    out center;
+                """.trimIndent()
 
                 val url = URL("https://overpass-api.de/api/interpreter")
                 val connection = url.openConnection() as HttpURLConnection
@@ -168,14 +164,11 @@ class SelecaoHospitalActivity : AppCompatActivity() {
                 connection.outputStream.write("data=$query".toByteArray())
 
                 val response = connection.inputStream.bufferedReader().use { it.readText() }
-                val json = org.json.JSONObject(response)
+                val json = JSONObject(response)
                 val elements = json.getJSONArray("elements")
 
                 runOnUiThread {
                     hospitalsList.removeAllViews()
-                    locaisHospitais.clear()
-                    marcadoresHospitais.clear()
-                    // Remove apenas os marcadores dos hemocentros (mantém o do usuário)
                     marcadoresHospitais.forEach { map.overlays.remove(it) }
                     marcadoresHospitais.clear()
 
@@ -183,25 +176,27 @@ class SelecaoHospitalActivity : AppCompatActivity() {
                         val obj = elements.getJSONObject(i)
                         val latPonto = obj.optDouble("lat", obj.optJSONObject("center")?.optDouble("lat") ?: continue)
                         val lonPonto = obj.optDouble("lon", obj.optJSONObject("center")?.optDouble("lon") ?: continue)
-
                         val nome = obj.optJSONObject("tags")?.optString("name") ?: "Posto de Doação"
                         val ponto = GeoPoint(latPonto, lonPonto)
                         val distancia = calcularDistanciaEmKm(localizacao, ponto)
 
-                        // Adiciona marcador e guarda
                         val marcador = Marker(map).apply {
                             position = ponto
                             title = nome
                             setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
 
-                            // Clique no marcador leva para a tela de agendamento
+                            // 🔗 Aqui enviamos todos os dados para CalendarioActivity
                             setOnMarkerClickListener { marker, _ ->
                                 val intent = Intent(this@SelecaoHospitalActivity, CalendarioActivity::class.java).apply {
                                     putExtra("nomeHospital", marker.title)
                                     putExtra("latitude", marker.position.latitude)
                                     putExtra("longitude", marker.position.longitude)
-                                    // Adicione uma imagem (local ou URL, exemplo abaixo)
-                                    putExtra("imagemUrl", "") // Pode usar uma URL futuramente ou deixar vazio para imagem padrão
+                                    putExtra("imagemUrl", "") // ou URL
+
+                                    // Envia todos os dados do questionário
+                                    dadosQuestionario?.keySet()?.forEach { chave ->
+                                        putExtra(chave, dadosQuestionario!!.getString(chave))
+                                    }
                                 }
                                 startActivity(intent)
                                 true
@@ -210,13 +205,11 @@ class SelecaoHospitalActivity : AppCompatActivity() {
 
                         map.overlays.add(marcador)
                         marcadoresHospitais.add(marcador)
-                        locaisHospitais.add(Pair(nome, ponto))
 
                         val hospitalItem = layoutInflater.inflate(R.layout.item_hospital, null)
                         val nomeText = hospitalItem.findViewById<TextView>(R.id.nomeHospital)
                         nomeText.text = "$nome (${distancia.toInt()} km)"
 
-                        // Quando clicar no item, centraliza no marcador e mostra balão
                         hospitalItem.setOnClickListener {
                             map.controller.setZoom(17.0)
                             map.controller.animateTo(ponto)
@@ -241,15 +234,9 @@ class SelecaoHospitalActivity : AppCompatActivity() {
         }.start()
     }
 
-
-
     private fun calcularDistanciaEmKm(p1: GeoPoint, p2: GeoPoint): Double {
         val results = FloatArray(1)
-        Location.distanceBetween(
-            p1.latitude, p1.longitude,
-            p2.latitude, p2.longitude,
-            results
-        )
+        Location.distanceBetween(p1.latitude, p1.longitude, p2.latitude, p2.longitude, results)
         return results[0] / 1000.0
     }
 }

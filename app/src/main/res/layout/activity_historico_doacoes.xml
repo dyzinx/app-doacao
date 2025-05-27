@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@android:color/white">
 
-<!-- Top bar -->
+    <!-- Top bar -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="96dp"
@@ -19,7 +16,7 @@
         android:paddingBottom="8dp">
 
         <ImageView
-            android:id="@+id/iconeMenu"
+            android:id="@+id/btnMenu"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/ic_menu"
@@ -36,7 +33,7 @@
             android:contentDescription="Logo App" />
 
         <ImageView
-            android:id="@+id/iconeUsuario"
+            android:id="@+id/btnUsuario"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/icone_de_usuario"
@@ -63,14 +60,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=" Histórico de Doações"
+                android:text="Histórico de Doações"
                 android:textSize="20sp"
                 android:textColor="#D32F2F"
                 android:textStyle="bold"
                 android:layout_marginBottom="16dp"
                 android:gravity="center" />
 
-            <!-- Doações realizadas -->
+            <!-- Subtítulo: Doações Realizadas -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -80,20 +77,13 @@
                 android:layout_marginBottom="8dp" />
 
             <LinearLayout
+                android:id="@+id/containerRealizadas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginBottom="24dp">
+                android:layout_marginBottom="24dp" />
 
-                <include
-                    layout="@layout/item_doacao_realizada"
-                    tools:layout="@layout/item_doacao_realizada" />
-                <include
-                    layout="@layout/item_doacao_realizada"
-                    tools:layout="@layout/item_doacao_realizada" />
-            </LinearLayout>
-
-            <!-- Doações agendadas -->
+            <!-- Subtítulo: Doações Agendadas -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -102,18 +92,13 @@
                 android:textSize="16sp"
                 android:layout_marginBottom="8dp" />
 
+            <!-- Container para agendamentos -->
             <LinearLayout
+                android:id="@+id/containerAgendamentos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <include
-                    layout="@layout/item_doacao_agendada"
-                    tools:layout="@layout/item_doacao_agendada" />
-                <include
-                    layout="@layout/item_doacao_agendada"
-                    tools:layout="@layout/item_doacao_agendada" />
-            </LinearLayout>
+                android:orientation="vertical"
+                android:layout_marginBottom="16dp" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

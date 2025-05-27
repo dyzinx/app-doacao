@@ -65,6 +65,12 @@ class CalendarioActivity : AppCompatActivity() {
                 putExtra("dataSelecionada", dataFormatada)
                 putExtra("horarioSelecionado", horarioSelecionado)
                 putExtra("imagemUrl", imagemUrl)
+
+                // Repassa todos os dados do questionário recebidos anteriormente
+                val extras = this@CalendarioActivity.intent.extras
+                extras?.keySet()?.forEach { chave ->
+                    putExtra(chave, extras.getString(chave))
+                }
             }
 
             startActivity(intent)
@@ -144,7 +150,6 @@ class CalendarioActivity : AppCompatActivity() {
             }
         }
     }
-
 
     private fun PopupMenu.forceShowIcons() {
         try {

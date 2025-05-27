@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:fitsSystemWindows="true">
+
+    <!-- Top bar padrão -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:background="#D32F2F"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="24dp"
+        android:paddingBottom="8dp">
+
+        <ImageView
+            android:id="@+id/btnMenu"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_menu"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="Menu" />
+
+        <ImageView
+            android:id="@+id/logoCentral"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/icone_de_celulas"
+            android:layout_centerInParent="true"
+            android:contentDescription="Logo App" />
+
+        <ImageView
+            android:id="@+id/btnUsuario"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icone_de_usuario"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="Perfil do usuário" />
+    </RelativeLayout>
+
+    <!-- Conteúdo do comprovante -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="24dp"
+        android:fillViewport="true">
+
+        <TextView
+            android:id="@+id/txtResumoComprovante"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Carregando..."
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:lineSpacingExtra="8dp" />
+    </ScrollView>
+
+    <!-- Botão Doação Concluída -->
+    <Button
+        android:id="@+id/btnDoacaoConcluida"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/botao_redondo"
+        android:text="Doação Concluída"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:minHeight="48dp" />
+</LinearLayout>

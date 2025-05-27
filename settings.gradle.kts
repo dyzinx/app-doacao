@@ -3,8 +3,7 @@ pluginManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
-        // Remova o jcenter() se possível (está obsoleto)
-        maven("https://jitpack.io")
+        maven("https://jitpack.io") // Para o Image Cropper funcionar
     }
 }
 
@@ -13,7 +12,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven("https://jitpack.io")
+        maven("https://jitpack.io") // Necessário para o CanHub
     }
 }
 

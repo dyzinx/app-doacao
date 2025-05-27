@@ -11,7 +11,7 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
-        <!-- Campo genérico -->
+        <!-- Nome -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -19,11 +19,13 @@
             android:layout_marginTop="8dp">
 
             <TextView
+                android:id="@+id/labelNome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/nome"
                 android:textColor="#FF0000"
-                android:textSize="14sp"/>
+                android:textSize="14sp"
+                android:labelFor="@id/editNome" />
 
             <EditText
                 android:id="@+id/editNome"
@@ -31,11 +33,10 @@
                 android:layout_height="48dp"
                 android:background="@drawable/borda_edittext"
                 android:inputType="textPersonName"
-                android:autofillHints="name"
                 android:padding="12dp"/>
         </LinearLayout>
 
-        <!-- Repetir esse bloco para os outros campos -->
+        <!-- Sobrenome -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,11 +44,13 @@
             android:layout_marginTop="8dp">
 
             <TextView
+                android:id="@+id/labelSobrenome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sobrenome"
                 android:textColor="#FF0000"
-                android:textSize="14sp"/>
+                android:textSize="14sp"
+                android:labelFor="@id/editSobrenome" />
 
             <EditText
                 android:id="@+id/editSobrenome"
@@ -55,10 +58,10 @@
                 android:layout_height="48dp"
                 android:background="@drawable/borda_edittext"
                 android:inputType="textPersonName"
-                android:autofillHints="name"
                 android:padding="12dp"/>
         </LinearLayout>
 
+        <!-- CPF -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -66,11 +69,13 @@
             android:layout_marginTop="8dp">
 
             <TextView
+                android:id="@+id/labelCPF"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/cpf"
                 android:textColor="#FF0000"
-                android:textSize="14sp"/>
+                android:textSize="14sp"
+                android:labelFor="@id/editCPF" />
 
             <EditText
                 android:id="@+id/editCPF"
@@ -81,6 +86,7 @@
                 android:padding="12dp"/>
         </LinearLayout>
 
+        <!-- Email -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -88,11 +94,13 @@
             android:layout_marginTop="8dp">
 
             <TextView
+                android:id="@+id/labelEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/email"
                 android:textColor="#FF0000"
-                android:textSize="14sp"/>
+                android:textSize="14sp"
+                android:labelFor="@id/editEmail" />
 
             <EditText
                 android:id="@+id/editEmail"
@@ -100,10 +108,10 @@
                 android:layout_height="48dp"
                 android:background="@drawable/borda_edittext"
                 android:inputType="textEmailAddress"
-                android:autofillHints="emailAddress"
                 android:padding="12dp"/>
         </LinearLayout>
 
+        <!-- Telefone -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -111,11 +119,13 @@
             android:layout_marginTop="8dp">
 
             <TextView
+                android:id="@+id/labelTelefone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/telefone"
                 android:textColor="#FF0000"
-                android:textSize="14sp"/>
+                android:textSize="14sp"
+                android:labelFor="@id/editTelefone" />
 
             <EditText
                 android:id="@+id/editTelefone"
@@ -123,10 +133,10 @@
                 android:layout_height="48dp"
                 android:background="@drawable/borda_edittext"
                 android:inputType="phone"
-                android:autofillHints="phone"
                 android:padding="12dp"/>
         </LinearLayout>
 
+        <!-- Senha -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -134,11 +144,13 @@
             android:layout_marginTop="8dp">
 
             <TextView
+                android:id="@+id/labelSenha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/senha"
                 android:textColor="#FF0000"
-                android:textSize="14sp"/>
+                android:textSize="14sp"
+                android:labelFor="@id/editSenha" />
 
             <EditText
                 android:id="@+id/editSenha"
@@ -146,10 +158,10 @@
                 android:layout_height="48dp"
                 android:background="@drawable/borda_edittext"
                 android:inputType="textPassword"
-                android:autofillHints="password"
                 android:padding="12dp"/>
         </LinearLayout>
 
+        <!-- Confirmar Senha -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -157,11 +169,13 @@
             android:layout_marginTop="8dp">
 
             <TextView
+                android:id="@+id/labelConfirmarSenha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/confirmar_senha"
                 android:textColor="#FF0000"
-                android:textSize="14sp"/>
+                android:textSize="14sp"
+                android:labelFor="@id/editConfirmarSenha" />
 
             <EditText
                 android:id="@+id/editConfirmarSenha"
@@ -177,7 +191,7 @@
             android:id="@+id/btnCadastrar"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:text="Cadastre-se"
+            android:text="@string/cadastrar"
             android:textColor="#FFFFFF"
             android:background="#000000"
             android:layout_marginTop="24dp"/>

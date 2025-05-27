@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">TelaDeLogin</string>
+
+    <!-- Campos Comuns -->
     <string name="nome">Nome</string>
     <string name="sobrenome">Sobrenome</string>
     <string name="cpf">CPF</string>
@@ -8,6 +10,22 @@
     <string name="senha">Senha</string>
     <string name="confirmar_senha">Confirme a senha</string>
     <string name="cadastrar">Cadastre-se</string>
+
+    <!-- Campos de Perfil -->
+    <string name="nome_completo">Nome completo</string>
+    <string name="celular">Celular</string>
+    <string name="aniversario">Aniversário</string>
+    <string name="genero">Gênero</string>
+    <string name="alterar_senha">Alterar Senha</string>
+    <string name="salvar_alteracoes">Salvar Alterações</string>
+
+    <!-- ContentDescription -->
+    <string name="menu">Menu</string>
+    <string name="logo">Logo</string>
+    <string name="perfil">Perfil</string>
+    <string name="foto_do_usuario">Foto do usuário</string>
+    <string name="abrir_galeria">Abrir galeria</string>
+
     <!-- Tipos Sanguíneos -->
     <string-array name="tipos_sanguineos">
         <item>Selecione seu tipo sanguíneo</item>
@@ -64,7 +82,7 @@
         <item>Nunca</item>
     </string-array>
 
-    <!-- Strings para a tela de seleção de hospital -->
+    <!-- Textos da tela de seleção de hospital -->
     <string name="titulo_permissao_localizacao">Permissão de Localização Necessária</string>
     <string name="mensagem_permissao_localizacao">Este app precisa acessar sua localização para encontrar hospitais próximos</string>
     <string name="permissao_negada">Permissão negada. Você pode digitar um endereço manualmente.</string>
@@ -81,17 +99,17 @@
     <string name="btn_buscar">Buscar</string>
     <string name="titulo_mapa_hospitais">Hospitais Próximos</string>
 
-    <!-- Mensagens de erro genéricas -->
+    <!-- Mensagens de erro -->
     <string name="erro_conexao">Erro de conexão. Verifique sua internet.</string>
     <string name="erro_desconhecido">Erro desconhecido</string>
 
-    <!-- Textos para diálogos -->
+    <!-- Diálogos -->
     <string name="btn_ok">OK</string>
     <string name="btn_cancelar">Cancelar</string>
     <string name="btn_tentar_novamente">Tentar novamente</string>
 
-    <!-- Textos para marcadores do mapa -->
+    <!-- Marcadores -->
     <string name="marcador_hospital">Hospital</string>
     <string name="lista_de_hospitais">Hospitais próximos</string>
-
+    <string name="doacao_realizada_exemplo">Doação realizada no dia 10/10/2024</string>
 </resources>

@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:background="@android:color/white">
 
-    <!-- Top Bar Vermelha -->
+    <!-- Top Bar -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="96dp"
@@ -43,68 +43,71 @@
             android:src="@drawable/icone_de_usuario" />
     </RelativeLayout>
 
-    <!-- Conteúdo -->
-    <LinearLayout
+    <!-- Título -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Selecione um estado"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="16dp" />
+
+    <!-- Lista de Estados -->
+    <ListView
+        android:id="@+id/listaEstados"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_weight="1" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Vidas Salvas com Doações"
-            android:textColor="#000000"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="16dp" />
+    <!-- Área com informações detalhadas -->
+    <LinearLayout
+        android:id="@+id/containerInfoEstado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        android:visibility="gone">
 
-        <!-- WebView sempre deve ter altura definida ou match_parent -->
-        <WebView
-            android:id="@+id/webViewMapa"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginBottom="60dp" />
+        <ImageView
+            android:id="@+id/iconeGota"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="12dp"
+            android:src="@drawable/icone_de_gota"
+            android:contentDescription="Ícone de Gota" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@drawable/background_card"
-            android:padding="16dp"
-            android:layout_marginTop="16dp"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icone_de_gota"
-                android:layout_marginEnd="8dp"
-                android:contentDescription="Ícone de gota" />
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/quantidadeVidas"
+                android:id="@+id/tituloEstado"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="47.785"
-                android:textStyle="bold"
+                android:text="Estado"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/vidasSalvasEstado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 vidas salvas"
+                android:textSize="16sp"
+                android:textColor="#333333" />
+
+            <TextView
+                android:id="@+id/mensagemEstado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mensagem"
+                android:textSize="14sp"
+                android:textColor="#555555" />
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/textoInfoEstado"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text=""
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:gravity="center"
-            android:visibility="gone" />
-
     </LinearLayout>
 </LinearLayout>

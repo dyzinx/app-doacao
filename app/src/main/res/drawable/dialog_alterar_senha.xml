@@ -62,6 +62,7 @@
             android:padding="14dp"
             android:layout_marginBottom="16dp" />
 
+        <!-- BOTÃO COM ID CORRETO -->
         <Button
             android:id="@+id/btnSalvarSenha"
             android:layout_width="match_parent"

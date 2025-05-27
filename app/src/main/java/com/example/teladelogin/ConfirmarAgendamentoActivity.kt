@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.Timestamp
 
 class ConfirmarAgendamentoActivity : AppCompatActivity() {
 
@@ -24,15 +27,28 @@ class ConfirmarAgendamentoActivity : AppCompatActivity() {
         spinnerHorario = findViewById(R.id.spinnerHorario)
         btnConfirmar = findViewById(R.id.btnConfirmar)
 
-        val nomeHospital = intent.getStringExtra("nomeHospital")
-        val enderecoHospital = intent.getStringExtra("enderecoHospital")
-        val dataSelecionada = intent.getStringExtra("dataSelecionada")
-        val imagemUrl = intent.getStringExtra("imagemUrl")
+        val nomeHospital = intent.getStringExtra("nomeHospital") ?: "Hospital não informado"
+        val enderecoHospital = intent.getStringExtra("enderecoHospital") ?: "Endereço não informado"
+        val dataSelecionada = intent.getStringExtra("dataSelecionada") ?: "Data não informada"
+        val imagemUrl = intent.getStringExtra("imagemUrl") ?: ""
+
+        val tipoSanguineo = intent.getStringExtra("tipoSanguineo") ?: "Não informado"
+        val genero = intent.getStringExtra("genero") ?: "Não informado"
+        val estadoCivil = intent.getStringExtra("estadoCivil") ?: "Não informado"
+        val nacionalidade = intent.getStringExtra("nacionalidade") ?: "Não informado"
+        val alergias = intent.getStringExtra("alergias") ?: "Não informado"
+        val doencasCronicas = intent.getStringExtra("doencasCronicas") ?: "Não informado"
+        val vacinado = intent.getStringExtra("vacinado") ?: "Não informado"
+        val fuma = intent.getStringExtra("fuma") ?: "Não informado"
+        val bebidasAlcoolicas = intent.getStringExtra("bebidasAlcoolicas") ?: "Não informado"
+        val alergiaRemedios = intent.getStringExtra("alergiaRemedios") ?: "Não informado"
+        val atividadesFisicas = intent.getStringExtra("atividadesFisicas") ?: "Não informado"
+        val tatuagemRecente = intent.getStringExtra("tatuagemRecente") ?: "Não informado"
 
         editLocal.setText("$nomeHospital - $enderecoHospital")
         editData.setText(dataSelecionada)
 
-        if (!imagemUrl.isNullOrEmpty()) {
+        if (imagemUrl.isNotEmpty()) {
             Glide.with(this).load(imagemUrl).into(imageHospital)
         } else {
             imageHospital.setImageResource(R.drawable.imagem_padrao_hospital)
@@ -52,14 +68,53 @@ class ConfirmarAgendamentoActivity : AppCompatActivity() {
         spinnerHorario.adapter = adapter
 
         btnConfirmar.setOnClickListener {
-            val horarioSelecionado = spinnerHorario.selectedItem.toString()
+            val horarioSelecionado = spinnerHorario.selectedItem?.toString() ?: "Horário não selecionado"
+            val uid = FirebaseAuth.getInstance().currentUser?.uid
 
-            val intent = Intent(this, AgendamentoConcluidoActivity::class.java)
-            intent.putExtra("horarioSelecionado", horarioSelecionado)
-            intent.putExtra("nomeHospital", nomeHospital)
-            intent.putExtra("dataSelecionada", dataSelecionada)
-            startActivity(intent)
-            finish()
+            if (uid == null) {
+                Toast.makeText(this, "Usuário não autenticado", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val agendamento = hashMapOf(
+                "hospital" to nomeHospital,
+                "endereco" to enderecoHospital,
+                "data" to dataSelecionada,
+                "horario" to horarioSelecionado,
+                "imagemUrl" to imagemUrl,
+                "timestamp" to Timestamp.now(),
+                "questionario" to hashMapOf(
+                    "tipoSanguineo" to tipoSanguineo,
+                    "genero" to genero,
+                    "estadoCivil" to estadoCivil,
+                    "nacionalidade" to nacionalidade,
+                    "alergias" to alergias,
+                    "doencasCronicas" to doencasCronicas,
+                    "vacinado" to vacinado,
+                    "fuma" to fuma,
+                    "bebidasAlcoolicas" to bebidasAlcoolicas,
+                    "alergiaRemedios" to alergiaRemedios,
+                    "atividadesFisicas" to atividadesFisicas,
+                    "tatuagemRecente" to tatuagemRecente
+                )
+            )
+
+            FirebaseFirestore.getInstance()
+                .collection("usuarios")
+                .document(uid)
+                .collection("agendamentos")
+                .add(agendamento)
+                .addOnSuccessListener {
+                    val intent = Intent(this, AgendamentoConcluidoActivity::class.java)
+                    intent.putExtra("horarioSelecionado", horarioSelecionado)
+                    intent.putExtra("nomeHospital", nomeHospital)
+                    intent.putExtra("dataSelecionada", dataSelecionada)
+                    startActivity(intent)
+                    finish()
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "Erro ao salvar agendamento: ${e.message}", Toast.LENGTH_LONG).show()
+                }
         }
     }
 }

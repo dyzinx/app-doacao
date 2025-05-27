@@ -21,7 +21,8 @@ class QuestionarioActivity : AppCompatActivity() {
             if (validarFormulario()) {
                 avancarParaProximaTela()
             } else {
-                Toast.makeText(this, "Preencha todos os campos obrigatórios", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Preencha todos os campos obrigatórios", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 
@@ -90,17 +91,50 @@ class QuestionarioActivity : AppCompatActivity() {
 
     private fun avancarParaProximaTela() {
         if (validarElegibilidade()) {
-            // Se elegível, vai para seleção de hospital
-            val intent = Intent(this, SelecaoHospitalActivity::class.java)
+            // Captura os valores dos spinners
+            val tipoSanguineo =
+                findViewById<Spinner>(R.id.spinnerTipoSanguineo).selectedItem.toString()
+            val genero = findViewById<Spinner>(R.id.spinnerGenero).selectedItem.toString()
+            val estadoCivil = findViewById<Spinner>(R.id.spinnerEstadoCivil).selectedItem.toString()
+            val nacionalidade =
+                findViewById<Spinner>(R.id.spinnerNacionalidade).selectedItem.toString()
+            val alergias = findViewById<Spinner>(R.id.spinnerAlergias).selectedItem.toString()
+            val doencasCronicas =
+                findViewById<Spinner>(R.id.spinnerDoencasCronicas).selectedItem.toString()
+            val vacinado = findViewById<Spinner>(R.id.spinnerVacinado).selectedItem.toString()
+            val fuma = findViewById<Spinner>(R.id.spinnerFuma).selectedItem.toString()
+            val bebidasAlcoolicas =
+                findViewById<Spinner>(R.id.spinnerBebidasAlcoolicas).selectedItem.toString()
+            val alergiaRemedios =
+                findViewById<Spinner>(R.id.spinnerAlergiaRemedios).selectedItem.toString()
+            val atividadesFisicas =
+                findViewById<Spinner>(R.id.spinnerAtividadesFisicas).selectedItem.toString()
+            val tatuagemRecente =
+                findViewById<Spinner>(R.id.spinnerTatuagemRecente).selectedItem.toString()
+
+            // Cria Intent e envia todos os dados para a próxima tela
+            val intent = Intent(this, SelecaoHospitalActivity::class.java).apply {
+                putExtra("tipoSanguineo", tipoSanguineo)
+                putExtra("genero", genero)
+                putExtra("estadoCivil", estadoCivil)
+                putExtra("nacionalidade", nacionalidade)
+                putExtra("alergias", alergias)
+                putExtra("doencasCronicas", doencasCronicas)
+                putExtra("vacinado", vacinado)
+                putExtra("fuma", fuma)
+                putExtra("bebidasAlcoolicas", bebidasAlcoolicas)
+                putExtra("alergiaRemedios", alergiaRemedios)
+                putExtra("atividadesFisicas", atividadesFisicas)
+                putExtra("tatuagemRecente", tatuagemRecente)
+            }
             startActivity(intent)
         } else {
-            // Se não elegível, mostra mensagem
             Toast.makeText(
                 this,
                 "Você não está elegível para doar sangue no momento",
                 Toast.LENGTH_LONG
             ).show()
-            finish() // Volta para a tela anterior
+            finish()
         }
     }
 }

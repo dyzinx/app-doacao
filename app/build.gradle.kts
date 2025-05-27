@@ -14,7 +14,6 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -39,25 +38,23 @@ android {
 }
 
 dependencies {
-    // OSMdroid
-    implementation("org.osmdroid:osmdroid-android:6.1.14")
-
-    implementation ("com.github.bumptech.glide:glide:4.16.0")
-
-    implementation ("com.github.CanHub:Android-Image-Cropper:4.3.2")
-
-    implementation ("com.caverock:androidsvg:1.4")
-
-
     // Firebase
-    implementation("com.google.firebase:firebase-firestore-ktx:24.10.3")
     implementation("com.google.firebase:firebase-auth:22.3.0")
+    implementation("com.google.firebase:firebase-firestore-ktx:24.10.3")
     implementation("com.google.firebase:firebase-database:20.3.0")
+
+    // Glide e Cropper
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("com.github.CanHub:Android-Image-Cropper:4.3.2")
+
+    // SVG e Mapas
+    implementation("com.caverock:androidsvg:1.4")
+    implementation("org.osmdroid:osmdroid-android:6.1.14")
 
     // Localização
     implementation("com.google.android.gms:play-services-location:21.0.1")
 
-    // Outras dependências
+    // AndroidX
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

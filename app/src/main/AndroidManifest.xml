@@ -2,13 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.teladelogin">
+
     <!-- Permissões necessárias -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28"
+        tools:ignore="ScopedStorage" />
 
     <application
         android:allowBackup="true"
@@ -16,54 +20,32 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.TelaDeLogin"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name=".MapaBrasil"
-            android:exported="false" />
-        <activity
-            android:name=".EditarPerfilActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ConfiguracoesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SobreActivity"
-            android:exported="false" />
-        <activity
-            android:name=".VidasSalvasActivity"
-            android:exported="false" />
-        <activity
-            android:name=".HistoricoDoacoesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AgendamentoConcluidoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ConfirmarAgendamentoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CalendarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SelecaoHospitalActivity"
-            android:exported="false" />
-        <activity
-            android:name=".QuestionarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".TelaInicialActivity"
-            android:exported="true" />
+
+        <!-- Activities -->
+        <activity android:name=".ComprovanteAgendamentoActivity" />
+        <activity android:name=".MapaBrasil" />
+        <activity android:name=".EditarPerfilActivity" />
+        <activity android:name=".ConfiguracoesActivity" />
+        <activity android:name=".SobreActivity" />
+        <activity android:name=".VidasSalvasActivity" />
+        <activity android:name=".HistoricoDoacoesActivity" />
+        <activity android:name=".AgendamentoConcluidoActivity" />
+        <activity android:name=".ConfirmarAgendamentoActivity" />
+        <activity android:name=".CalendarioActivity" />
+        <activity android:name=".SelecaoHospitalActivity" />
+        <activity android:name=".QuestionarioActivity" />
+        <activity android:name=".TelaInicialActivity" android:exported="true" />
+        <activity android:name=".CadastroActivity" />
+
+        <!-- Main Launcher -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".CadastroActivity"
-            android:exported="false" />
-    </application>
 
+    </application>
 </manifest>
