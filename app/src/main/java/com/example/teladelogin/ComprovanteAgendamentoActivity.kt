@@ -2,11 +2,13 @@ package com.example.teladelogin
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -39,7 +41,7 @@ class ComprovanteAgendamentoActivity : AppCompatActivity() {
             return
         }
 
-        // Carregar dados do agendamento
+        // Carrega os dados para exibir
         db.collection("usuarios").document(uid)
             .collection("agendamentos").document(agendamentoId)
             .get()
@@ -68,19 +70,25 @@ class ComprovanteAgendamentoActivity : AppCompatActivity() {
             agendamentoRef.get().addOnSuccessListener { document ->
                 val dados = document.data
                 if (dados != null) {
-                    userRef.collection("realizadas").add(dados).addOnSuccessListener {
-                        agendamentoRef.delete().addOnSuccessListener {
-                            Toast.makeText(this, "Doação marcada como realizada!", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(this, HistoricoDoacoesActivity::class.java)
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-                            startActivity(intent)
-                            finish()
-                        }.addOnFailureListener {
-                            Toast.makeText(this, "Erro ao excluir agendamento", Toast.LENGTH_SHORT).show()
+                    val dadosComTimestamp = HashMap(dados)
+                    dadosComTimestamp["timestamp"] = Timestamp.now()
+
+                    userRef.collection("realizadas").add(dadosComTimestamp)
+                        .addOnSuccessListener {
+                            agendamentoRef.delete().addOnSuccessListener {
+                                Toast.makeText(this, "Doação marcada como realizada!", Toast.LENGTH_SHORT).show()
+                                val intent = Intent(this, HistoricoDoacoesActivity::class.java)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                                startActivity(intent)
+                                finish()
+                            }.addOnFailureListener {
+                                Toast.makeText(this, "Erro ao excluir agendamento", Toast.LENGTH_SHORT).show()
+                            }
                         }
-                    }.addOnFailureListener {
-                        Toast.makeText(this, "Erro ao mover para realizadas", Toast.LENGTH_SHORT).show()
-                    }
+                        .addOnFailureListener { e ->
+                            Toast.makeText(this, "Erro ao mover para realizadas: ${e.message}", Toast.LENGTH_LONG).show()
+                            Log.e("FIREBASE", "Erro ao mover para realizadas", e)
+                        }
                 } else {
                     Toast.makeText(this, "Agendamento não encontrado", Toast.LENGTH_SHORT).show()
                 }
@@ -89,7 +97,7 @@ class ComprovanteAgendamentoActivity : AppCompatActivity() {
             }
         }
 
-        // Menu lateral e perfil
+        // Menu
         btnMenu.setOnClickListener { showStyledMenuPopup(it, R.menu.menu_main) }
         btnUsuario.setOnClickListener { showStyledMenuPopup(it, R.menu.menu_profile) }
     }

@@ -68,7 +68,6 @@ class HistoricoDoacoesActivity : AppCompatActivity() {
 
                     btnComprovante.setOnClickListener {
                         val intent = Intent(this, ComprovanteAgendamentoActivity::class.java)
-                        intent.putExtra("uid", uid)
                         intent.putExtra("agendamentoId", agendamentoId)
                         startActivity(intent)
                     }

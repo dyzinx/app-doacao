@@ -10,6 +10,11 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
@@ -19,7 +24,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.util.*
 
-class SelecaoHospitalActivity : AppCompatActivity() {
+class SelecaoHospitalActivity : AppCompatActivity(), LifecycleOwner {
 
     private lateinit var map: MapView
     private lateinit var edtSearch: EditText
@@ -49,8 +54,6 @@ class SelecaoHospitalActivity : AppCompatActivity() {
         map.controller.setCenter(GeoPoint(-14.2350, -51.9253)) // Centro do Brasil
 
         geocoder = Geocoder(this, Locale.getDefault())
-
-        // Recupera dados do questionário
         dadosQuestionario = intent.extras
 
         btnSearch.setOnClickListener {
@@ -60,7 +63,17 @@ class SelecaoHospitalActivity : AppCompatActivity() {
             }
         }
 
-        verificarPermissaoLocalizacao()
+        val emModoTeste = intent.getBooleanExtra("modoTeste", false)
+        if (!emModoTeste) {
+            verificarPermissaoLocalizacao()
+        } else {
+            val pontoTeste = GeoPoint(-23.5505, -46.6333)
+            localizacaoAtual = pontoTeste
+            map.controller.setZoom(16.0)
+            map.controller.setCenter(pontoTeste)
+            mostrarMarcadorUsuario(pontoTeste)
+            buscarHemocentrosProximos(pontoTeste)
+        }
     }
 
     private fun verificarPermissaoLocalizacao() {
@@ -134,104 +147,95 @@ class SelecaoHospitalActivity : AppCompatActivity() {
     }
 
     private fun buscarHemocentrosProximos(localizacao: GeoPoint) {
-        Thread {
+        lifecycleScope.launch {
             try {
                 val lat = localizacao.latitude
                 val lon = localizacao.longitude
-                val radius = 50000 // 50km
+                val radius = 50000
 
                 val query = """
-                    [out:json];
-                    (
-                      node["amenity"="blood_donation"](around:$radius,$lat,$lon);
-                      way["amenity"="blood_donation"](around:$radius,$lat,$lon);
-                      relation["amenity"="blood_donation"](around:$radius,$lat,$lon);
-                      node["amenity"="blood_bank"](around:$radius,$lat,$lon);
-                      way["amenity"="blood_bank"](around:$radius,$lat,$lon);
-                      relation["amenity"="blood_bank"](around:$radius,$lat,$lon);
-                      node["healthcare"="blood_donation"](around:$radius,$lat,$lon);
-                      way["healthcare"="blood_donation"](around:$radius,$lat,$lon);
-                      relation["healthcare"="blood_donation"](around:$radius,$lat,$lon);
-                    );
-                    out center;
-                """.trimIndent()
+                [out:json];
+                (
+                  node["amenity"="blood_donation"](around:$radius,$lat,$lon);
+                  way["amenity"="blood_donation"](around:$radius,$lat,$lon);
+                  relation["amenity"="blood_donation"](around:$radius,$lat,$lon);
+                  node["amenity"="blood_bank"](around:$radius,$lat,$lon);
+                  way["amenity"="blood_bank"](around:$radius,$lat,$lon);
+                  relation["amenity"="blood_bank"](around:$radius,$lat,$lon);
+                  node["healthcare"="blood_donation"](around:$radius,$lat,$lon);
+                  way["healthcare"="blood_donation"](around:$radius,$lat,$lon);
+                  relation["healthcare"="blood_donation"](around:$radius,$lat,$lon);
+                );
+                out center;
+            """.trimIndent()
 
-                val url = URL("https://overpass-api.de/api/interpreter")
-                val connection = url.openConnection() as HttpURLConnection
-                connection.requestMethod = "POST"
-                connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
-                connection.doOutput = true
-                connection.outputStream.write("data=$query".toByteArray())
+                val response = withContext(Dispatchers.IO) {
+                    val url = URL("https://overpass-api.de/api/interpreter")
+                    val connection = url.openConnection() as HttpURLConnection
+                    connection.requestMethod = "POST"
+                    connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
+                    connection.doOutput = true
+                    connection.outputStream.write("data=$query".toByteArray())
+                    connection.inputStream.bufferedReader().use { it.readText() }
+                }
 
-                val response = connection.inputStream.bufferedReader().use { it.readText() }
                 val json = JSONObject(response)
                 val elements = json.getJSONArray("elements")
 
-                runOnUiThread {
-                    hospitalsList.removeAllViews()
-                    marcadoresHospitais.forEach { map.overlays.remove(it) }
-                    marcadoresHospitais.clear()
+                hospitalsList.removeAllViews()
+                marcadoresHospitais.forEach { map.overlays.remove(it) }
+                marcadoresHospitais.clear()
 
-                    for (i in 0 until elements.length()) {
-                        val obj = elements.getJSONObject(i)
-                        val latPonto = obj.optDouble("lat", obj.optJSONObject("center")?.optDouble("lat") ?: continue)
-                        val lonPonto = obj.optDouble("lon", obj.optJSONObject("center")?.optDouble("lon") ?: continue)
-                        val nome = obj.optJSONObject("tags")?.optString("name") ?: "Posto de Doação"
-                        val ponto = GeoPoint(latPonto, lonPonto)
-                        val distancia = calcularDistanciaEmKm(localizacao, ponto)
+                for (i in 0 until elements.length()) {
+                    val obj = elements.getJSONObject(i)
+                    val latPonto = obj.optDouble("lat", obj.optJSONObject("center")?.optDouble("lat") ?: continue)
+                    val lonPonto = obj.optDouble("lon", obj.optJSONObject("center")?.optDouble("lon") ?: continue)
+                    val nome = obj.optJSONObject("tags")?.optString("name") ?: "Posto de Doação"
+                    val ponto = GeoPoint(latPonto, lonPonto)
+                    val distancia = calcularDistanciaEmKm(localizacao, ponto)
 
-                        val marcador = Marker(map).apply {
-                            position = ponto
-                            title = nome
-                            setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
-
-                            // 🔗 Aqui enviamos todos os dados para CalendarioActivity
-                            setOnMarkerClickListener { marker, _ ->
-                                val intent = Intent(this@SelecaoHospitalActivity, CalendarioActivity::class.java).apply {
-                                    putExtra("nomeHospital", marker.title)
-                                    putExtra("latitude", marker.position.latitude)
-                                    putExtra("longitude", marker.position.longitude)
-                                    putExtra("imagemUrl", "") // ou URL
-
-                                    // Envia todos os dados do questionário
-                                    dadosQuestionario?.keySet()?.forEach { chave ->
-                                        putExtra(chave, dadosQuestionario!!.getString(chave))
-                                    }
+                    val marcador = Marker(map).apply {
+                        position = ponto
+                        title = nome
+                        setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+                        setOnMarkerClickListener { marker, _ ->
+                            val intent = Intent(this@SelecaoHospitalActivity, CalendarioActivity::class.java).apply {
+                                putExtra("nomeHospital", marker.title)
+                                putExtra("latitude", marker.position.latitude)
+                                putExtra("longitude", marker.position.longitude)
+                                putExtra("imagemUrl", "")
+                                dadosQuestionario?.keySet()?.forEach { chave ->
+                                    putExtra(chave, dadosQuestionario!!.getString(chave))
                                 }
-                                startActivity(intent)
-                                true
                             }
+                            startActivity(intent)
+                            true
                         }
-
-                        map.overlays.add(marcador)
-                        marcadoresHospitais.add(marcador)
-
-                        val hospitalItem = layoutInflater.inflate(R.layout.item_hospital, null)
-                        val nomeText = hospitalItem.findViewById<TextView>(R.id.nomeHospital)
-                        nomeText.text = "$nome (${distancia.toInt()} km)"
-
-                        hospitalItem.setOnClickListener {
-                            map.controller.setZoom(17.0)
-                            map.controller.animateTo(ponto)
-                            marcador.showInfoWindow()
-                        }
-
-                        hospitalsList.addView(hospitalItem)
                     }
 
-                    map.invalidate()
+                    map.overlays.add(marcador)
+                    marcadoresHospitais.add(marcador)
 
-                    if (elements.length() == 0) {
-                        Toast.makeText(this, "Nenhum posto de doação encontrado na região.", Toast.LENGTH_LONG).show()
+                    val hospitalItem = layoutInflater.inflate(R.layout.item_hospital, null)
+                    hospitalItem.findViewById<TextView>(R.id.nomeHospital).text = "$nome (${distancia.toInt()} km)"
+                    hospitalItem.setOnClickListener {
+                        map.controller.setZoom(17.0)
+                        map.controller.animateTo(ponto)
+                        marcador.showInfoWindow()
                     }
+                    hospitalsList.addView(hospitalItem)
+                }
+
+                map.invalidate()
+
+                if (elements.length() == 0) {
+                    Toast.makeText(this@SelecaoHospitalActivity, "Nenhum posto de doação encontrado na região.", Toast.LENGTH_LONG).show()
                 }
 
             } catch (e: Exception) {
-                runOnUiThread {
-                    Toast.makeText(this, "Erro ao buscar locais: ${e.message}", Toast.LENGTH_LONG).show()
-                }
+                Toast.makeText(this@SelecaoHospitalActivity, "Erro ao buscar locais: ${e.message}", Toast.LENGTH_LONG).show()
             }
-        }.start()
+        }
     }
 
     private fun calcularDistanciaEmKm(p1: GeoPoint, p2: GeoPoint): Double {
