@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.teladelogin"
+    namespace = "com.example.doevida"
     compileSdk = 35
 
     defaultConfig {

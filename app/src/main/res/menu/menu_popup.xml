@@ -15,12 +15,6 @@
         app:showAsAction="always"/>
 
     <item
-        android:id="@+id/configuracoes"
-        android:icon="@drawable/ic_settings"
-        android:title="   Configurações"
-        app:showAsAction="always"/>
-
-    <item
         android:id="@+id/sobre"
         android:icon="@drawable/ic_about"
         android:title="   Sobre o app"
